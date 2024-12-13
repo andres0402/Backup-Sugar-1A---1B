@@ -68,16 +68,16 @@ function check_form(formname) {
 		return false;
 	}
 
-	var totalBolsas = 0;
+	var totalBolsa = 0;
 
 	//Se obtiene el saldo disponible de las bolsas del contrato asociado
 	$.ajax({
 		type: 'POST',
-		url: "index.php?entryPoint=obtenerTotalBolsasContrato",
+		url: "index.php?entryPoint=obtenerTotalBolsaContrato",
 		data: {id_linea_pto: id_linea_pto},
 		async: false,
 		success:function(response){
-			totalBolsas = parseFloat(parseFloat(response).toFixed(2));
+			totalBolsa = parseFloat(parseFloat(response).toFixed(2));
 	 },
 	 error: function(xhr, status, error) {
 		console.error("Error en la llamada AJAX:", error);
@@ -86,8 +86,8 @@ function check_form(formname) {
 	}
 });
 
-	if (valor_total_id > totalBolsas && totalBolsas != -1){
-		alert('El valor solicitado supera el valor disponible en el saldo de las bolsas del contrato asociado, por lo que no es posible procesar su solicitud. Por favor corrija ese inconveniente para poder continuar.');
+	if (valor_total_id > totalBolsa && totalBolsa != -1){
+		alert('El valor solicitado supera el valor disponible en la bolsa asociada a la línea de presupuesto, por lo que no es posible procesar su solicitud. Por favor corrija ese inconveniente para poder continuar.');
 		return false;
 	} 
 

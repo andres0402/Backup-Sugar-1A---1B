@@ -44,6 +44,17 @@ class Prepedidos {
 		// $row = $bean->db->fetchByAssoc($results);
 		// $pto_consumido = $row['pto_consumido'];
 		$bean->disponible_linea_pto_c = $pto_total;// - $pto_consumido;
+
+		$query = "SELECT sum(valor_cop) AS valor_provisiones 
+		FROM l_pagos p INNER JOIN l_prepedidos_l_pagos_1_c x ON  p.id = x.l_prepedidos_l_pagos_1l_pagos_idb, l_pagos_cstm cs
+		WHERE x.l_prepedidos_l_pagos_1l_prepedidos_ida = '$bean->id' AND x.deleted = 0 AND cs.tipo_c = 'Provision' AND cs.id_c = p.id";
+
+		$results = $bean->db->query($query, true);
+		$row = $bean->db->fetchByAssoc($results);
+		$valor_provisiones = $row['valor_provisiones'];
+
+		$bean->provision_cop_c = $valor_provisiones;
+
 	}
 	
     function preSave($bean, $event, $arguments) {
